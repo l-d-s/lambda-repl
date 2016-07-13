@@ -1,98 +1,9 @@
-module LambdaCalculus where
+module Reductions where
 
-{-
-Sources of inspiration:
+import LambdaCalculus.Terms
 
--  [John's Lambda Calculus and Combinatory Logic Playground]
-   (http://tromp.github.io/cl/cl.html). Would be fun to implement some
-   of the pretty printing etc. from here.
-
--  Tromp, J. (2014). Binary lambda calculus and combinatory logic.
-   Randomness and Complexity, from Leibniz to Chaitin 237–260.
-
--  Clean syntax is from [Alberto Ruiz]
-   (http://dis.um.es/~alberto/pages/lambdac.html).
-
--  Idea: `diagrams` backend.
--}
-
-import Data.Char (chr)
 import Data.List (nub)
 
--- Data type for lambda terms.
--- Using `int` to index variables.
-data LambdaTerm =
-      Var Int
-    | Lam Int LambdaTerm
-    | App LambdaTerm LambdaTerm
-    deriving (Eq)
-
-
--- Some examples --
-ltId :: LambdaTerm
-ltId = Lam 0 (Var 0)
-
-ltA :: LambdaTerm
-ltA = Var 0
-
-ltRetB :: LambdaTerm
-ltRetB = Lam 0 (Var 1)
-
-ltFst :: LambdaTerm
-ltFst = Lam 0 (Lam 1 (Var 0))
-
-ltSnd :: LambdaTerm
-ltSnd = Lam 0 (Lam 1 (Var 1))
-
-
--- Pretty printing. Could use a library for this. --
-
-showVarIndex :: Int -> String
-showVarIndex i =
-    let
-        letterNo     = i `mod` 26
-        charNo       = letterNo + 97
-        timesThrough = i `div` 26
-    in
-        case timesThrough of
-            0 ->
-                [chr charNo]
-
-            _ ->
-                -- slightly ugly but GHCi suggests not [x] ++ xs
-                chr charNo : show timesThrough
-
-
-showClean :: LambdaTerm -> String
-showClean l =
-    case l of
-        Var x ->
-            showVarIndex x -- fix to allow for a_1 etc.
-
-        Lam x y ->
-            "(" ++ show (Var x) ++ "." ++ show y ++ ")"
-
-        App x y ->
-            "(" ++ show x ++ " " ++ show y ++ ")"
-
-
-showTrad :: LambdaTerm -> String
-showTrad l =
-    case l of
-        Var x ->
-            showVarIndex x -- fix to allow for a_1 etc.
-
-        Lam x y ->
-            "(\\" ++ show (Var x) ++ "." ++ show y ++ ")"
-
-        App x y ->
-            "(" ++ show x ++ " " ++ show y ++ ")"
-
-
-instance Show LambdaTerm where
-    show = showClean
-
--- Computations --
 
 {-
 Good place to learn about different evaluation strategies I think.
@@ -249,18 +160,5 @@ normalReduce lt =
 
             | otherwise ->
                 App a b
-
--- Test expressions
-
-test0 :: LambdaTerm
-test0 = Lam 0 (Var 0) -- (a.a)
-
-test1 :: LambdaTerm
-test1 = Lam 0 (App (Var 0) (Var 1)) -- (a.(a b))
-
-test2 :: LambdaTerm
-test2 = Lam 0 (App (Var 0) (Var 0)) -- (a.(a a))
-
--- Substitution
 
 -- Eta-conversion
