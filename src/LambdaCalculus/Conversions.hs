@@ -1,9 +1,8 @@
-module Reductions where
+module LambdaCalculus.Conversions where
 
 import LambdaCalculus.Terms
 
 import Data.List (nub)
-
 
 {-
 Good place to learn about different evaluation strategies I think.
@@ -162,3 +161,16 @@ normalReduce lt =
                 App a b
 
 -- Eta-conversion
+
+etaConvert :: LambdaTerm -> LambdaTerm
+etaConvert lt =
+    case lt of
+        Lam i (App a (Var j)) ->
+            if i == j && i `notElem` freeVars a
+            then
+                a
+            else
+                lt
+
+        _ ->
+            lt
