@@ -1,19 +1,27 @@
-module ExampleTerms where
+module LambdaCalculus.ExampleTerms where
 
 import LambdaCalculus.Terms
 
--- Some examples --
-ltId :: LambdaTerm
-ltId = Lam 0 (Var 0)
+-- Some examples from
+-- https://en.wikipedia.org/wiki/Lambda_calculus#Standard_terms
 
-ltA :: LambdaTerm
-ltA = Var 0
+ltI :: LambdaTerm
+ltI = Lam 0 (Var 0)
 
-ltRetB :: LambdaTerm
-ltRetB = Lam 0 (Var 1)
+ltLittleOmega :: LambdaTerm
+ltLittleOmega = Lam 0 (App (Var 0) (Var 0))
 
-ltFst :: LambdaTerm
-ltFst = Lam 0 (Lam 1 (Var 0))
+ltOmega :: LambdaTerm
+ltOmega = App ltLittleOmega ltLittleOmega
 
-ltSnd :: LambdaTerm
-ltSnd = Lam 0 (Lam 1 (Var 1))
+ltVarA :: LambdaTerm
+ltVarA = Var 0
+
+ltVarB :: LambdaTerm
+ltVarB = Var 1
+
+ltTrue :: LambdaTerm
+ltTrue = Lam 0 (Lam 1 (Var 0))
+
+ltFalse :: LambdaTerm
+ltFalse = Lam 0 (Lam 1 (Var 1))
