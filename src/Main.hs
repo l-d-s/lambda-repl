@@ -19,4 +19,4 @@ printEvaluation evaluator lt =
 
 
 main :: IO ()
-main = putStrLn "hello world"
+main = printEvaluation normalReduce ltComplex
