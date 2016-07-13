@@ -27,8 +27,6 @@ data LambdaTerm =
     deriving (Eq)
 
 
--- Pretty printing. Could use a library for this. --
-
 showVarIndex :: Int -> String
 showVarIndex i =
     let
