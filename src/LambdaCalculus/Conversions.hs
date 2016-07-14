@@ -107,7 +107,6 @@ betaReduce i x y =
 -- Evaluation --
 
 -- Right innermost
--- DOESN'T WORK
 applicativeReduce :: LambdaTerm -> LambdaTerm
 applicativeReduce lt =
     case lt of
