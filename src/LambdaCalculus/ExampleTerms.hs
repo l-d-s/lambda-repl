@@ -27,4 +27,9 @@ ltFalse :: LambdaTerm
 ltFalse = Lam 0 (Lam 1 (Var 1))
 
 ltComplex :: LambdaTerm
-ltComplex = App (App ltTrue (App (App ltTrue (App ltOmega ltI)) (Var 2))) (Var 2)
+ltComplex = App (App ltTrue
+                     (App (App ltTrue
+                               (App ltOmega
+                                    ltI))
+                          (Var 2)))
+                (Var 2)
