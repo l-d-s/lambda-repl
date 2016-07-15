@@ -10,7 +10,7 @@ import Turtle -- (stdin, stdout, liftIO)
 import Data.Text as T
 
 
-takeWhileDistinct :: Eq a => [a] -> [a]
+takeWhileDistinct :: Eq a => [ a ] -> [ a ]
 takeWhileDistinct xs =
     case xs of
         [] ->
@@ -24,7 +24,7 @@ takeWhileDistinct xs =
 
 
 evaluationSequence ::
-    (LambdaTerm -> LambdaTerm) -> LambdaTerm -> [LambdaTerm]
+    (LambdaTerm -> LambdaTerm) -> LambdaTerm -> [ LambdaTerm ]
 evaluationSequence evaluator lt =
     takeWhileDistinct (iterate evaluator lt)
 
