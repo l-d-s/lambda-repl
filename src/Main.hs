@@ -1,22 +1,41 @@
 module Main where
 
 import LambdaCalculus.Terms
+import LambdaCalculus.Parser
 import LambdaCalculus.ExampleTerms
 import LambdaCalculus.Conversions
 
+import Turtle -- (stdin, stdout, liftIO)
+
+import Data.Text as T
+
 
 takeWhileDistinct :: Eq a => [a] -> [a]
-takeWhileDistinct [] = []
-takeWhileDistinct [x] = [x]
-takeWhileDistinct [x, y] = if x == y then [x] else [x, y]
-takeWhileDistinct (x:y:zs) =
-    if x == y then [x] else x : takeWhileDistinct (y:zs)
+takeWhileDistinct xs =
+    case xs of
+        [] ->
+            []
+        [x] ->
+            [x]
+        [x, y] ->
+            if x == y then [x] else [x, y]
+        (x:y:zs) ->
+            if x == y then [x] else x : takeWhileDistinct (y:zs)
 
 
-printEvaluation :: (LambdaTerm -> LambdaTerm) -> LambdaTerm -> IO ()
-printEvaluation evaluator lt =
-    mapM_ print (takeWhileDistinct (iterate evaluator lt))
+evaluationSequence ::
+    (LambdaTerm -> LambdaTerm) -> LambdaTerm -> [LambdaTerm]
+evaluationSequence evaluator lt =
+    takeWhileDistinct (iterate evaluator lt)
 
+
+showNormalEval lt =
+    Prelude.unlines (fmap show (evaluationSequence normalReduce lt))
+
+
+processInputText t =
+    T.pack (either (\t -> "Error: " <> t) showNormalEval
+                (parseExpression t))
 
 main :: IO ()
-main = printEvaluation normalReduce ltComplex
+main = stdout (fmap processInputText stdin)
