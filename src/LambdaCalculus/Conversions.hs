@@ -58,6 +58,10 @@ alphaRename i lt =
     in
         alphaRename' i j lt
 
+-- alphaNormalize
+-- make variable indices as small as possible
+-- cf. de Brujin notation
+
 -- Beta reduction --
 
 isBetaRedex :: LambdaTerm -> Bool
