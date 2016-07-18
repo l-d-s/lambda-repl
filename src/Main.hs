@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Main where
 
 import LambdaCalculus.Terms
@@ -6,6 +8,7 @@ import LambdaCalculus.ExampleTerms
 import LambdaCalculus.Conversions
 
 import Turtle -- (stdin, stdout, liftIO)
+import Turtle.Options
 
 import Data.Text as T
 
@@ -29,16 +32,27 @@ evaluationSequence evaluator lt =
     takeWhileDistinct (iterate evaluator lt)
 
 
-showNormalEval :: LambdaTerm -> String
-showNormalEval lt =
-    Prelude.unlines (fmap show (evaluationSequence normalReduce lt))
+showEval evaluator lt =
+    Prelude.unlines (fmap show (evaluationSequence evaluator lt))
 
 
-processInputText :: Text -> Text
-processInputText t =
-    T.pack (either (\t -> "Error: " <> t) showNormalEval
+processInputText evaluator t =
+    T.pack (either (\t -> "Error: " <> t)
+                   (showEval evaluator)
                 (parseExpression t))
 
 
+argParser = switch "applicative" 'a' "Use applicative evaluation order."
+
+
 main :: IO ()
-main = stdout (fmap processInputText stdin)
+main = do
+    useApplicativeOrder <- options "Lambda calculus REPL" argParser
+
+    let evaluator = if useApplicativeOrder
+                        then
+                            applicativeReduce
+                        else
+                            normalReduce
+
+    stdout (fmap (processInputText evaluator) stdin)
