@@ -37,5 +37,6 @@ processInputText t =
     T.pack (either (\t -> "Error: " <> t) showNormalEval
                 (parseExpression t))
 
+
 main :: IO ()
 main = stdout (fmap processInputText stdin)
