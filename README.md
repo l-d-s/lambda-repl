@@ -19,7 +19,8 @@ $ lambda-repl
  ```
 
 `lambda-repl` uses normal-order reduction (left outermost) by
-default.  To use applicative-order reduction (right innermost):
+default. Add the `-a` flag to use applicative-order reduction 
+(right innermost):
 
 ```
 $ lambda-repl -a
