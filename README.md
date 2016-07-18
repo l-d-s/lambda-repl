@@ -22,7 +22,7 @@ $ lambda-repl
 default.  To use applicative-order reduction (right innermost):
 
 ```
-$ lambda-repl 
+$ lambda-repl -a
 (((a.(b.a)) (((a.(b.a)) (((a.(a a)) (a.(a a))) (a.a))) c)) c)
 <enter>
 (((a.(b.a)) (((a.(b.a)) (((a.(a a)) (a.(a a))) (a.a))) c)) c)
