@@ -30,5 +30,5 @@ $ lambda-repl -a
 
 As the above example shows, `lambda-repl` currently stops reducing
 expressions either when no further beta-reductions are possible
-with the current strategy, or when the resultant term evaluates to
+with the chosen strategy, or when the resultant term evaluates to
 itself -- without distinguishing the two cases.
