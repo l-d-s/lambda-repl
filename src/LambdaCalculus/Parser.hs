@@ -9,8 +9,8 @@ import Control.Applicative ((<|>))
 
 variableNumberParser = do
     x <- satisfy (inClass "a-z")
-    -- i <- number
-    return (ord x - 97) -- (ord x - 97 + i)
+    i <- decimal <|> return 0
+    return ((ord x - 97) + (i * 26))
 
 
 variableParser = do
@@ -38,9 +38,9 @@ lambdaTermParser = do
 
 
 expressionParser =
-    (variableParser <|>
-     applicationParser <|>
-     lambdaTermParser)
+    variableParser <|>
+    applicationParser <|>
+    lambdaTermParser
 
 
 parseExpression = parseOnly (expressionParser <* endOfInput)

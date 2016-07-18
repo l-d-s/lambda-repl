@@ -29,10 +29,12 @@ evaluationSequence evaluator lt =
     takeWhileDistinct (iterate evaluator lt)
 
 
+showNormalEval :: LambdaTerm -> String
 showNormalEval lt =
     Prelude.unlines (fmap show (evaluationSequence normalReduce lt))
 
 
+processInputText :: Text -> Text
 processInputText t =
     T.pack (either (\t -> "Error: " <> t) showNormalEval
                 (parseExpression t))

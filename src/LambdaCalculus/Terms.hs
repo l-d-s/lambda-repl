@@ -18,6 +18,7 @@ Sources of inspiration:
 
 import Data.Char (chr)
 
+
 -- Data type for lambda terms.
 -- Using `int` to index variables.
 data LambdaTerm =
