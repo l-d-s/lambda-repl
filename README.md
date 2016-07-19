@@ -33,7 +33,7 @@ $ lambda-repl -a
 (((a.(b.a)) (((a.(b.a)) (((a.(a a)) (a.(a a))) (a.a))) c)) c)
 ```
 
-As the above example shows, `lambda-repl` currently stops reducing
+As the above examples show, `lambda-repl` currently stops reducing
 expressions either when no further beta-reductions are possible
-with the chosen strategy, or when the resultant term evaluates to
+with the chosen strategy, or when a term evaluates to
 itself -- without distinguishing the two cases.
