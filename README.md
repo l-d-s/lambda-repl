@@ -5,7 +5,8 @@ The lambda-free syntax is inspired by [Alberto
 Luiz](http://dis.um.es/~alberto/)'s
 [λ-calculus](http://dis.um.es/~alberto/pages/lambdac.html) page.
 
-Example usage:
+`lambda-repl` accepts a lambda expression from stdin, and outputs
+this expression and a sequence of beta-reductions to stdout:
 
  ```
 $ lambda-repl 
@@ -17,6 +18,9 @@ $ lambda-repl
 ((b.(((a.(a a)) (a.(a a))) (a.a))) c)
 (((a.(a a)) (a.(a a))) (a.a))
  ```
+
+Variables are lowercase ascii characters with optional indices
+(e.g. `x23`).
 
 `lambda-repl` uses normal-order reduction (left outermost) by
 default. Add the `-a` flag to use applicative-order reduction 
