@@ -2,7 +2,7 @@ A bare-bones read-eval-print loop (REPL) for the untyped lambda
 calculus, written for Haskell and Stack practice.
 
 The lambda-free syntax is inspired by [Alberto
-Luiz](http://dis.um.es/~alberto/)'s
+Ruiz](http://dis.um.es/~alberto/)'s
 [λ-calculus](http://dis.um.es/~alberto/pages/lambdac.html) page.
 
 `lambda-repl` accepts a lambda expression from stdin, and outputs
